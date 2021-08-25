@@ -157,7 +157,7 @@ class SimpleIndexer(Executor):
 
 class NodeEncoder(Executor):
 
-    def __init__(self, model_path_state_dict='saved_model.torch'
+    def __init__(self, model_path_state_dict='./model/saved_model.torch'
                  , *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.model = GCN(num_node_features=300, num_classes=10, hidden_channels=128)

@@ -7,7 +7,7 @@ or with virtualenv to install the dependencies and manage this example.
 
 
 
-#### Installing dependencies
+#### Install dependencies
 
 - Install [pytorch_geometric](https://pytorch-geometric.readthedocs.io/en/latest/notes/installation.html).
 
@@ -31,7 +31,7 @@ or with virtualenv to install the dependencies and manage this example.
 
   
 
-  #### Downloading the data
+#### Download the data
 
 The dataset can be downloaded cloning the `wiki-cs-dataset` repository as follows:
 
@@ -48,13 +48,46 @@ README.md		app.py			model			requirements.txt  dataset_loader.py 	model.py
 wiki-cs-dataset
 ```
 
-#### Running the application
+
+
+#### Run the application
 
 The application ca be executted running:
 
 ``````bash
 python app.py 
 ``````
+
+The application will index the data and prompt a set of candidate urls.
+
+The user can write one of the proposed urls in the terminal and get a set of recommended ulrs.
+
+```
+Candidate urls:
+
+https://en.wikipedia.org/wiki/Scheme_(programming_language)
+https://en.wikipedia.org/wiki/XLeratorDB
+https://en.wikipedia.org/wiki/Universal_IR_Evaluation
+https://en.wikipedia.org/wiki/ARM9
+https://en.wikipedia.org/wiki/PoSeidon_(malware)
+
+ Enter url to recommend from:
+
+https://en.wikipedia.org/wiki/ARM9
+
+ top 10 recommended nodes:
+
+https://en.wikipedia.org/wiki/ARM9
+https://en.wikipedia.org/wiki/Atmel_ARM-based_processors
+https://en.wikipedia.org/wiki/Nomadik
+https://en.wikipedia.org/wiki/ARM_Cortex-M
+https://en.wikipedia.org/wiki/ARM_Cortex-R
+https://en.wikipedia.org/wiki/ARM_Cortex-A
+https://en.wikipedia.org/wiki/EFM32
+https://en.wikipedia.org/wiki/List_of_applications_of_ARM_cores
+https://en.wikipedia.org/wiki/NXP_LPC
+https://en.wikipedia.org/wiki/Sitara_ARM_Processor
+```
 
 
 
