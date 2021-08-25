@@ -52,7 +52,7 @@ wiki-cs-dataset
 
 #### Run the application
 
-The application ca be executted running:
+The application ca be executed running:
 
 ``````bash
 python app.py 
@@ -60,7 +60,7 @@ python app.py
 
 The application will index the data and prompt a set of candidate urls.
 
-The user can write one of the proposed urls in the terminal and get a set of recommended ulrs.
+The user can write one of the proposed urls (or any url from the dataset) in the terminal and get a set of recommended ulrs.
 
 ```
 Candidate urls:
