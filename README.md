@@ -44,8 +44,13 @@ Note that the  repository is expected to be inside the same folder as `example-w
 After cloning the repository the working directory should have the following files
 
 ```
-README.md		app.py			model			requirements.txt  dataset_loader.py 	model.py	
+model			
 wiki-cs-dataset
+README.md		
+app.py			
+dataset_loader.py 	
+model.py	
+requirements.txt  
 ```
 
 
