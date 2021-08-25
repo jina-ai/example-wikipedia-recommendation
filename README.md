@@ -51,6 +51,7 @@ app.py
 dataset_loader.py 	
 model.py	
 requirements.txt  
+train_and_save_model.py
 ```
 
 
@@ -95,4 +96,8 @@ https://en.wikipedia.org/wiki/Sitara_ARM_Processor
 ```
 
 
+
+### Optional: Training the model
+
+The provided code does not need to train a model from scatch, but the script `train_and_save_model.py` allows you to train the provided model an store it in `saved_model.torch`. 
 
