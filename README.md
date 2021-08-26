@@ -4,7 +4,7 @@
 
 This example showcases  the `GraphDocument` type for searching/recommending relevant wikipedia urls. In this example queries are wikipedia urls and the retrieved items are other relevant and related wikipedia urls. Note that the url is used only as an ID to select a document, not as the feature vector used to do search. 
 
-This example showcases how a `GraphDocument` is capable to store a graph like dataset. Besides, it uses a Graph Convolutional Neural Network to generate embeddings for nodes in the dataset taking aggregating the text embeddings of neighbouring nodes.
+This example showcases how a `GraphDocument` is capable to store a graph like dataset. Besides, it uses a Graph Convolutional Neural Network to generate embeddings for nodes in the dataset, aggregating the text embeddings of neighbouring nodes.
 
 
 
