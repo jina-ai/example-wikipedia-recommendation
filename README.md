@@ -8,13 +8,15 @@ This example showcases how a `GraphDocument` is capable to store a graph like da
 
 
 
+
+
 #### Dataset
 
 This example uses the [wiki-cs-dataset](https://arxiv.org/abs/2007.02901) which contains 11701 wikipedia webpages. From the data, a graph can be constructed where nodes represent different url pages and links between nodes represent the existance of a link from one wikipedia page to another. In total there are 216,123 links between the nodes.
 
 This dataset provides the following information for each node:
 
-- A feature vector extracted computing the average of the glove embeddings for each word in the document.
+- A feature vector extracted computing the average of the (GloVe)[https://nlp.stanford.edu/pubs/glove.pdf] mbeddings for each word in the document.
 - A class label from 0 to 9
 - A list of neighbour articles (documents linked to the node). Note that this list might have a different lenght for each node in the dataset.
 
@@ -32,6 +34,25 @@ Labels, coded from 0 to 9, correspond to the following categories:
 - 7: Distributed computing architecture,
 - 8: Web technology,
 - 9: Programming language topics
+
+
+
+#### Dataset representation in Jina
+
+The data is prepared by the function `_get_input_graph` which loads the data as a `GraphDocument` that stores the edges between documents and the nodes. 
+
+Edges are added with `.add_edges(source_docs, dest_docs)` method, which recieves a list of source and target jina `Document` objects representing the nodes that are connected.
+
+Nodes are added with the `.add_node` method and contains information about the  GloVe vector generated from the text in the url (stored as blob). 
+
+```python
+gd.add_node(Document(id=url,
+                     blob=x.numpy(),
+                     tags={'class': int(y),
+                           'title': title,
+                           'url': url,
+                           'label': label}))
+```
 
 
 
