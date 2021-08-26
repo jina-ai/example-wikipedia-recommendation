@@ -2,4 +2,4 @@
 jina
 git+https://github.com/jina-ai/jina-commons
 torch
-
+click

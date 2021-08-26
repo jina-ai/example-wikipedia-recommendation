@@ -16,16 +16,6 @@ import random
 import click
 
 
-def general_config():
-    os.environ['JINA_PARALLEL'] = os.environ.get('JINA_PARALLEL', '1')
-    os.environ['JINA_SHARDS'] = os.environ.get('JINA_SHARDS', '2')
-    os.environ['JINA_DATASET_NAME'] = os.environ.get('JINA_DATASET_NAME', 'siftsmall')
-    os.environ['JINA_TMP_DATA_DIR'] = os.environ.get('JINA_TMP_DATA_DIR', './')
-    os.environ['JINA_DATA_FILE'] = os.environ.get('JINA_TMP_DATA_DIR', './')
-    os.environ['JINA_REQUEST_SIZE'] = os.environ.get('JINA_REQUEST_SIZE', '100')
-    os.environ['OMP_NUM_THREADS'] = os.environ.get('OMP_NUM_THREADS', '1')
-
-
 class SimpleIndexer(Executor):
     """
     A simple indexer that stores all the Document data together,
@@ -313,7 +303,6 @@ def recommend():
 
 
 def run(task):
-    general_config()
 
     if task == 'index':
         index()
