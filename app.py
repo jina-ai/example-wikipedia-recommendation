@@ -238,6 +238,7 @@ def _get_input_graph():
 def _get_input_request(input_id):
     return [Document(id=input_id)]
 
+
 def index():
 
     t0 = time.time()
@@ -301,20 +302,16 @@ def recommend():
                 else:
                     print(f'{match.tags["url"]}')
 
-
 def run(task):
-
     if task == 'index':
         index()
     if task == 'recommend':
         recommend()
 
-
 @click.command()
 @click.option('--task', '-t')
 def main(task):
     run(task)
-
 
 if __name__ == '__main__':
     main()
