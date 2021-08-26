@@ -1,4 +1,5 @@
 from typing import Dict, Optional, List
+import os
 
 from jina import Executor, requests, Document, DocumentArray, Flow
 from jina.types.arrays.memmap import DocumentArrayMemmap
@@ -12,6 +13,17 @@ import numpy as np
 import torch
 import time
 import random
+import click
+
+
+def general_config():
+    os.environ['JINA_PARALLEL'] = os.environ.get('JINA_PARALLEL', '1')
+    os.environ['JINA_SHARDS'] = os.environ.get('JINA_SHARDS', '2')
+    os.environ['JINA_DATASET_NAME'] = os.environ.get('JINA_DATASET_NAME', 'siftsmall')
+    os.environ['JINA_TMP_DATA_DIR'] = os.environ.get('JINA_TMP_DATA_DIR', './')
+    os.environ['JINA_DATA_FILE'] = os.environ.get('JINA_TMP_DATA_DIR', './')
+    os.environ['JINA_REQUEST_SIZE'] = os.environ.get('JINA_REQUEST_SIZE', '100')
+    os.environ['OMP_NUM_THREADS'] = os.environ.get('OMP_NUM_THREADS', '1')
 
 
 class SimpleIndexer(Executor):
@@ -169,7 +181,6 @@ class NodeEncoder(Executor):
         node_features = []
         edge_list_tensor = torch.tensor(np.vstack([adjacency.row, adjacency.col]), dtype=int)
         for node in nodes:
-            # do something
             node_features.append(node.blob)
         return torch.Tensor(np.stack(node_features)), edge_list_tensor
 
@@ -184,7 +195,6 @@ class NodeEncoder(Executor):
             node_features, adjacency = self._get_dataset(nodes, graph.adjacency)
             results = self.model.encode(node_features, adjacency)
             for node, embedding in zip(graph.nodes, results):
-                # apply embedding to each node
                 node.embedding = embedding.detach().numpy()
 
 
@@ -226,7 +236,7 @@ def _get_input_graph():
         title = node['title']
         label = node['label']
         url = create_url(title)
-        gd.add_node(Document(id=url,
+        gd.add_single_node(Document(id=url,
                              blob=x.numpy(),
                              tags={'class': int(y),
                                    'title': title,
@@ -253,17 +263,23 @@ def index():
         f.index(inputs=graphs)
 
 
-def search():
+def recommend():
 
     n_candidates = 5
     print_label = False
 
     def _search(f, input_id):
-        resp = f.post(on='/fill_embedding', inputs=_get_input_request(input_id), return_results=True)
+
+        resp = f.post(on='/fill_embedding', 
+                      inputs=_get_input_request(input_id), 
+                      return_results=True)
+
         new_query = resp[0].docs[0]
+
         if new_query.embedding is None:
             print(f' url is not in the index, nothing to recommend')
             return []
+            
         results = f.search(inputs=[new_query], return_results=True)
         matches = results[0].docs[0].matches
         return matches
@@ -295,6 +311,21 @@ def search():
                 else:
                     print(f'{match.tags["url"]}')
 
+
+def run(task):
+    general_config()
+
+    if task == 'index':
+        index()
+    if task == 'recommend':
+        recommend()
+
+
+@click.command()
+@click.option('--task', '-t')
+def main(task):
+    run(task)
+
+
 if __name__ == '__main__':
-    index()
-    search()
+    main()
